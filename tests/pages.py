@@ -56,7 +56,7 @@ class SignUpPage:
     def is_success(self, email: str, url: str) -> bool:
         try:
             #Verify redirected to Subscription page
-            in_subscriptions = self.url in self.page.url
+            in_subscriptions = url in self.page.url
             # Verify username matches registered email
             avatar = self.page.locator("span[class='avatar'] svg")
             avatar.click()

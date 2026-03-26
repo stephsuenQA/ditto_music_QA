@@ -14,11 +14,14 @@
    ```
 
 ## Environment
-- Tested locally on macOS with Python 3.9 and Playwright Chromium.        
+Tested locally on macOS with Python 3.9 and Playwright Chromium.    
+
+## Screen Recordings
+All recordings are in the `videos/` folder in this repository.
 
 ## Assumptions
 - Tests stop when a CAPTCHA appears, as per the exercise scope.
-- The invalid case is “email already in use”, as this is a common real‑world failure.
+- Invalid cases focus on the most common real-world sign-up failures: duplicate email, short password, and terms not accepted.
 - Selectors are based on the current DOM and may need updates if the UI changes.
 - `KNOWN_EXISTING_EMAIL` in test_signup.py assumes an account with test+existing@gmail.com already exists in the system. Register it manually before running if needed.
 
@@ -27,10 +30,11 @@
 - Runs headless by default; set HEADED=true to watch the browser during development.
 - Generate a unique email per run (via uuid) to avoid test pollution.
 - For the valid sign-up, treat a visible CAPTCHA as a hard boundary (skip) and otherwise assert a clear success state (redirect + logged‑in user).
-- Current run targets Chromium only; with more time I’d extend the suite to WebKit and Firefox using Playwright’s browser matrix if needed.
+- The brief specifies one invalid case; additional cases (short password, terms not accepted) were added to demonstrate broader coverage.
 
 ## What I'd Add Next
 - Data-driven tests for more invalid scenarios (format, weak password, missing fields, terms not accepted).
 - CI pipeline (e.g. GitHub Actions) running headless with artifacts on failure.
 - API-level checks around sign-up (e.g. email verification token endpoint).
 - Allure (or similar) reporting integration.
+- Extend the suite to WebKit and Firefox using Playwright’s browser matrix if needed.

@@ -64,8 +64,9 @@ class TestSignUp:
             pytest.skip("CAPTCHA wall reached – within acceptable scope per brief")
 
 
-        # Assert error message is visible
+        # Assert error message is visible and user is not authenticated
         signup.error_message_duplicate_email_isdisplayed(), "Expected error message is visible"  
+        assert SUBSCRIPTION_URL_PART not in page.url, "User should not be authenticated"
 
     def test_invalid_short_password(self, page: Page):
         """Invalid sign-up: short password """
@@ -74,18 +75,19 @@ class TestSignUp:
         page.wait_for_timeout(3000)
 
         # Use a password less than 6 characters
-        password=SHORTPASSWORD
         signup.fill_form(
-            email=KNOWN_EXISTING_EMAIL,
-            password=password,
-        )
+         email=KNOWN_EXISTING_EMAIL,
+         password=SHORTPASSWORD,
+)
 
         # Assert error message is visible
         signup.invalid_pw_message_isdisplayed(), "Expected error message is visible"
         page.wait_for_timeout(3000)
     
-        # Assert sign up button is not clickable
+        # Assert sign up button is not clickable and user is not authenticated
         assert signup.button_is_disabled(), "Expected Sign up button to be disabled"
+        assert SUBSCRIPTION_URL_PART not in page.url, "User should not be authenticated"
+
 
     def test_terms_checkbox_not_checked(self, page: Page):
         """Invalid sign-up: terms checkbox not checked """
@@ -106,5 +108,6 @@ class TestSignUp:
         signup.invalid_checkbox_message_isdisplayed(), "Expected error message is visible"
         page.wait_for_timeout(3000)
     
-        # Assert sign up button is not clickable
+        # Assert sign up button is not clickable and user is not authenticated
         assert signup.button_is_disabled(), "Expected Sign up button to be disabled"
+        assert SUBSCRIPTION_URL_PART not in page.url, "User should not be authenticated"
