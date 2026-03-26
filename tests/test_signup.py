@@ -76,9 +76,9 @@ class TestSignUp:
 
         # Use a password less than 6 characters
         signup.fill_form(
-         email=KNOWN_EXISTING_EMAIL,
-         password=SHORTPASSWORD,
-)
+            email=KNOWN_EXISTING_EMAIL,
+            password=SHORTPASSWORD,
+        )
 
         # Assert error message is visible
         signup.invalid_pw_message_isdisplayed(), "Expected error message is visible"
@@ -94,8 +94,8 @@ class TestSignUp:
         signup = SignUpPage(page)
         signup.navigate(url=SIGNUP_URL)
         page.wait_for_timeout(3000)
-
-        # Use a password less than 6 characters
+        
+        #fill the form with valid email and password but do not check the terms checkbox
         signup.fill_form(
             email=KNOWN_EXISTING_EMAIL,
             password=PASSWORD,
